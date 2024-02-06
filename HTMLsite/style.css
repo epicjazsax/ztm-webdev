@@ -1,0 +1,68 @@
+/*Selector{
+	Property: value;
+}*/
+
+* {
+	color: Black;
+}
+
+body {
+	background-image: url(https://i.pinimg.com/originals/2e/62/05/2e6205fa0278c08f207d8fcda77c5fb7.jpg);
+	background-size: cover;
+}
+
+h1 {
+	text-align: center;
+	border: 2px solid LightCoral;
+	text-transform: uppercase;
+}
+
+h2 {
+	color: maroon;
+	text-align: center;
+}
+
+ h5 {
+	 cursor: wait;
+}
+
+img {
+	transition: all 0.5s;
+}
+
+img:hover {
+	transform: scale(1.25);
+}
+
+p {
+	line-height: 125%;
+}
+
+li {
+	line-height: 150%;
+}
+
+.lowpaque {
+	background-color: rgba(125, 125, 125, 0.3);
+}
+
+.texty {
+	color: DarkRed;
+}
+
+#lorem {
+	background-color: rgba(87, 164, 190, 0.3);
+	color: #3D0200;
+	text-decoration: line-through;
+
+img[alt="wow"] {
+	float: left;
+}
+
+img[alt="sad"] {
+	float: right;
+}
+
+footer {
+	clear: both;
+}
