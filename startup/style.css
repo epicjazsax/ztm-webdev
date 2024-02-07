@@ -9,17 +9,14 @@ html {
 
 h1 {
 	color: white;
-	font-size: 2em;
+	font-size: 4em;
+}
+
+.buffer {
+	height: 14rem;
 }
 
 #heybutton {
-	/*position: relative;
-	height: 100px;
-	width: 300px;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	margin: 270px 0 0 -150px;*/
 	height: 100px;
 	width: 300px;
 	border-radius: 25px;
