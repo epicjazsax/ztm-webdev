@@ -111,3 +111,16 @@ body {
 		grid-column: 3/-1;
 		justify-self: flex-end;
 }
+
+.red{
+		text-transform: uppercase;
+		justify-content: center;
+		align-content: center;
+}
+
+.cover{
+		display: flex;
+		height: 100%;
+		align-items: center;
+		justify-content: center;
+}
