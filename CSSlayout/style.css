@@ -115,7 +115,7 @@ img:hover{
 		text-transform: uppercase;
 		justify-content: center;
 		align-content: center;
-		font-size: 12px; /* clamp(2vw, 3vw, 40px); */
+		font-size: clamp(2vw, 3vw, 40px);
 }
 
 .cover{
@@ -132,27 +132,20 @@ img:hover{
     -o-box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
     box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
     cursor:pointer;
-		/* font-size: 5vw; */
-		transition: all 3s linear;
+		transition: all 10s linear;
 }
 
 @media screen and (min-width: 300px) {
-  .red:hover {
-    font-size: 4.4vw;
-		transition: all 3s linear;
-  }
+  	.red:hover {
+    font-size: 4.3vw;
+  	}
 }
 
-@media screen and (min-width: 600px) {
-  .red:hover {
-    font-size: calc(12px + 3vw);
-  }
+@media screen and (min-width: 1050px) {
+  	.red:hover {
+    font-size: 5vw;
+  	}
 }
-
-
-
-
-
 
 /***********************************************************************
  *  Blue Background
@@ -179,7 +172,7 @@ img:hover{
     background: -ms-linear-gradient(top, #F3AAAA 0%,#febf04 100%); /* IE10+ */
     background: linear-gradient(top, #F3AAAA 0%,#febf04 100%); /* W3C */
 		padding: 0px;
-    font-size: 1vw;
+    font-size: 1.1vw;
 		text-align: center;
-		text-transform: uppercase;
+		text-transform: lowercase;
 }
