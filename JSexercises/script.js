@@ -1,3 +1,4 @@
+// simple calculator using prompt and alert
 function operate() {
 	var first = Number(prompt("enter first number"));
 	if (!first) {
@@ -29,6 +30,7 @@ function operate() {
 	alert(`${first} ${operator} ${second} = ${answer}`)
 }
 
+// keyless car exercise using prompt to verify age
 function driverAge() {
 	var age = Number(prompt("enter your age so we can check your suitability"));
 	if (age <= 0) {
@@ -50,4 +52,67 @@ function driverAge() {
 	}
 }
 
-driverAge()
+//build facebook exercise
+var timothy = {
+	username: "tinytimmy",
+	password: "bigtim",
+};
+
+var database = [timothy];
+database.push(
+	{
+		username: "mrmercedes",
+		password: "kingofstephen",
+	},
+	{
+		username: "mpoirot",
+		password: "curtain",
+	},
+);
+
+var userList = [];
+database.forEach((element) => {
+	userList.push(element.username);
+});
+
+var newsFeed = [
+	{
+		username: "",
+		timeline: "",
+	},
+	{
+		username: "",
+		timeline: "",
+	},
+	{
+		username: "",
+		timeline: "",
+	},
+];
+
+var usernamePrompt = prompt("what is your username?");
+var passwordPrompt = prompt("what is your password?");
+
+// function signIn(name, code) {
+// 	if (name in userList) {
+// 		const position = database.indexOf(name)
+// 		if (code === database[position].password) {
+// 			console.log("congratulations you remember your password")
+// 		}
+// 	}
+// }
+
+function findWithAttr(array, attr, value) {
+	for(var i = 0; i < array; i += 1) {
+		if(array[i][attr] === value) {
+			return i;
+		}
+	}
+	return -1;
+}
+
+function logIn(name, code) {
+	if (name in userList) {
+		const position = findWithAttr(database, username, name);
+	}
+}
