@@ -26,7 +26,7 @@ function operate() {
 		answer = first / second;
 	} else if (operator === "*") {
 		answer = first * second;
-	} 
+	}
 	alert(`${first} ${operator} ${second} = ${answer}`)
 }
 
@@ -90,8 +90,8 @@ var newsFeed = [
 	},
 ];
 
-var usernamePrompt = prompt("what is your username?");
-var passwordPrompt = prompt("what is your password?");
+// var usernamePrompt = prompt("what is your username?");
+// var passwordPrompt = prompt("what is your password?");
 
 // function signIn(name, code) {
 // 	if (name in userList) {
@@ -112,7 +112,12 @@ function findWithAttr(array, attr, value) {
 }
 
 function logIn(name, code) {
-	if (name in userList) {
-		const position = findWithAttr(database, username, name);
+	if (userList.includes(name)) {
+		info = database.find(element => element.username === name);
+		if (code === info.password) {
+			console.log(`congratulations ${name}, you remember your password`)
+		}
+	}else {
+		console.log(`name ${name} not found`)
 	}
 }
