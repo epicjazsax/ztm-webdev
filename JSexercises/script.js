@@ -90,34 +90,27 @@ var newsFeed = [
 	},
 ];
 
-// var usernamePrompt = prompt("what is your username?");
-// var passwordPrompt = prompt("what is your password?");
-
-// function signIn(name, code) {
-// 	if (name in userList) {
-// 		const position = database.indexOf(name)
-// 		if (code === database[position].password) {
-// 			console.log("congratulations you remember your password")
-// 		}
-// 	}
-// }
-
-function findWithAttr(array, attr, value) {
-	for(var i = 0; i < array; i += 1) {
-		if(array[i][attr] === value) {
-			return i;
+function securityPrompt() {
+	var usernamePrompt = prompt("what is your username?");
+	var passwordPrompt = prompt("what is your password?");
+	function logIn(name, code) {
+		if (userList.includes(name)) {
+			info = database.find(element => element.username === name);
+			if (code === info.password) {
+				alert(`congratulations ${name}, you remember your password!`);
+			}
+			else {
+				alert("password does not match our records");
+				setTimeout(securityPrompt, 1);
+				return;
+			}
+		}else {
+			alert(`username ${name} not found`);
+			setTimeout(securityPrompt, 1);
+			return;
 		}
 	}
-	return -1;
+	logIn(usernamePrompt, passwordPrompt);
 }
 
-function logIn(name, code) {
-	if (userList.includes(name)) {
-		info = database.find(element => element.username === name);
-		if (code === info.password) {
-			console.log(`congratulations ${name}, you remember your password`)
-		}
-	}else {
-		console.log(`name ${name} not found`)
-	}
-}
+securityPrompt();
