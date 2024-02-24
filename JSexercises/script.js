@@ -77,16 +77,16 @@ database.forEach((element) => {
 
 var newsFeed = [
 	{
-		username: "",
-		timeline: "",
+		username: "acdoyle",
+		timeline: "think i might play some violin today idfk",
 	},
 	{
-		username: "",
-		timeline: "",
+		username: "iasimov",
+		timeline: "beep boop bitch",
 	},
 	{
-		username: "",
-		timeline: "",
+		username: "dadams",
+		timeline: "so long and thanks for all the fish",
 	},
 ];
 
@@ -97,7 +97,8 @@ function securityPrompt() {
 		if (userList.includes(name)) {
 			info = database.find(element => element.username === name);
 			if (code === info.password) {
-				alert(`congratulations ${name}, you remember your password!`);
+				alert(`congratulations ${name}, you remember your password! Check your console log for your news feed.`);
+				console.log(newsFeed);
 			}
 			else {
 				alert("password does not match our records");
@@ -112,5 +113,3 @@ function securityPrompt() {
 	}
 	logIn(usernamePrompt, passwordPrompt);
 }
-
-securityPrompt();

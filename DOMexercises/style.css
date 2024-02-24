@@ -1,0 +1,13 @@
+.done{
+	text-decoration: line-through;
+}
+
+a{
+	text-decoration: none;
+	color: black;
+}
+
+a:hover{
+	background-color: aliceblue;
+	font-size: 1.2em;
+}
