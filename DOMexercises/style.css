@@ -1,13 +1,26 @@
-.done{
-	text-decoration: line-through;
+li{
+	/* Feb 27 2024 https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting */
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none; /* Safari */
+	-khtml-user-select: none; /* Konqueror HTML */
+ 	-moz-user-select: none; /* Old versions of Firefox */
+	-ms-user-select: none; /* Internet Explorer/Edge */
+	user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+	display: table;
 }
 
-a{
-	text-decoration: none;
-	color: black;
+/* add bullet points back to list (removed by li display:table) */
+li:before{
+	content: "\2022";
+	padding-right: 0.5em;
 }
 
-a:hover{
+li:hover{
 	background-color: aliceblue;
 	font-size: 1.2em;
+	cursor:pointer;
+}
+
+.done{
+	text-decoration: line-through;
 }

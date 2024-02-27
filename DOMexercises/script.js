@@ -1,5 +1,5 @@
 const taskList = document.getElementById("taskList");
-var task = document.querySelectorAll("a");
+var task = document.querySelectorAll("li");
 const taskInput = document.getElementById("newTaskInput");
 const taskSubmit = document.getElementById("newTaskSubmit");
 
@@ -21,13 +21,9 @@ taskInput.addEventListener("keydown", function(event) {
 //make submit button add newTask to taskList
 taskSubmit.addEventListener("click", newTask);
 
-//toggle task Done class
-// function taskDone(task) {
-// 	const element = document.querySelector(task);
-// 	element.classList.toggle("done");
-// }
-
-//use eventListener and function expression to complete clicked task
-task.addEventListener("onclick", function() {
-	console.log("hello");
+//click to add "done" strike-through class to task
+taskList.addEventListener("click", (event) => {
+	const targetId = event.target.getAttribute("id");
+	const currentTask = document.getElementById(targetId);
+	currentTask.classList.toggle("done");
 });
