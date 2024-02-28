@@ -1,43 +1,47 @@
-.container {
-	height: 50vh;
+h3::before{
+	content: "*"
+}
+
+h3::after{
+	content: "*"
+}
+
+h4::before{
+	content: "-"
+}
+
+h4::after{
+	content: "-"
+}
+
+table{
+	margin: 10px;
 	width: 30vw;
-	display: grid;
-	grid-template-columns: 30px max-content;
+	user-select: none;
 }
 
-li{
-	/* Feb 27 2024 https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting */
-	/* ***TRY USING TABLE TO LINK TRASHCAN WITH TASK*** */
-	-webkit-touch-callout: none; /* iOS Safari */
-	-webkit-user-select: none; /* Safari */
-	-khtml-user-select: none; /* Konqueror HTML */
- 	-moz-user-select: none; /* Old versions of Firefox */
-	-ms-user-select: none; /* Internet Explorer/Edge */
-	user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
-	/* display: table; */
-	list-style-type: none;
+td{
+	display: table;
+	display: inline-block;
 }
 
-#trashCans{
-	grid-column-start: 1;
-	padding-inline-start: 15px;
+td:nth-child(odd){
+	text-align: center;
+	margin-right: 2px;
 }
 
-#taskList{
-	grid-column-start: 2;
+td:nth-child(odd):hover{
 	font-size: 1.1em;
-	padding-inline-start: 10px;
-}
-
-#trashCans li:hover{
-	background-color: crimson;
-	cursor: pointer;
-}
-
-#taskList li:hover{
-	background-color: aliceblue;
 	font-weight: bold;
-	cursor:pointer;
+	cursor: pointer;
+	background-color: crimson;
+}
+
+td:nth-child(even) div:hover{
+	font-size: 1.1em;
+	font-weight: bold;
+	cursor: pointer;
+	background-color: aliceblue;
 }
 
 .done{

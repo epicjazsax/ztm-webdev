@@ -8,24 +8,28 @@
 </head>
 <body>
 	<h1>To-Do List</h1>
-	<p id="first">Eat goulash</p>
-	<p class="second">Read more Dr. Moreau</p>
+	<h3>Eat goulash</h3>
+	<h4>Read more Dr. Moreau</h4>
 	<input id="newTaskInput" type="text" placeholder="enter new task">
 	<button id="newTaskSubmit" type="submit" class="submit">Submit</button>
-	<div class="container">
-		<ul id="trashCans">
-			<li id="cans1">🗑</li>
-			<li id="cans2">🗑</li>
-			<li id="cans3">🗑</li>
-			<li id="cans4">🗑</li>
-		</ul>
-		<ul id="taskList">
-			<li class="gaming" id="task1">Continue Road to Gehenna</li>
-			<li id="task2">Dust bookshelf</li>
-			<li class="gaming" id="task3">Farm Aya</li>
-			<li id="task4">Charge earbuds</li>
-		</ul>
-	</div>
+	<table id="todoList">
+		<tr>
+			<td><input type="button" value="🗑" onclick="deleteRow(this)"></td>
+			<td><div>Continue Road to Gehenna</div></td>
+		</tr>
+		<tr>
+			<td><input type="button" value="🗑" onclick="deleteRow(this)"></td>
+			<td><div>Dust bookshelf</div></td>
+		</tr>
+		<tr>
+			<td><input type="button" value="🗑" onclick="deleteRow(this)"></td>
+			<td><div>Farm Aya</div></td>
+		</tr>
+		<tr>
+			<td><input type="button" value="🗑" onclick="deleteRow(this)"></td>
+			<td><div>Charge earbuds</div></td>
+		</tr>
+	</table>
 	<script src="script.js"></script>
 </body>
 </html>
