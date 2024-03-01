@@ -1,16 +1,8 @@
-h3::before{
+h3::before, h3::after{
 	content: "*"
 }
 
-h3::after{
-	content: "*"
-}
-
-h4::before{
-	content: "-"
-}
-
-h4::after{
+h4::before, h4::after{
 	content: "-"
 }
 
@@ -31,8 +23,6 @@ td:nth-child(odd){
 }
 
 td:nth-child(odd):hover{
-	font-size: 1.1em;
-	font-weight: bold;
 	cursor: pointer;
 	background-color: crimson;
 }
