@@ -1,22 +1,41 @@
 //goal = [[1,1,1,1],[2,2,2],4,5,10,[20,20],391,392,591];
 const given = [1,2,4,591,392,391,2,5,10,2,1,1,1,20,20];
-
-const lowFirst = given.toSorted((a,b) => a-b);
-const highFirst = given.toSorted((a,b) => b-a);
-
-//move latter or both of these to smaller scope eventually
+const secondTest = [32,12,15,32,3,8473,33,32,15,9,0];
+const thirdTest = [12,-21,0,12,0,-1,15,3];
+const letterTest = [3,"K",3,15,0,-23,-3,12,"a","k","a"];
+const stringTest = [6,21,-2,"j","O","h",21,0,6,5465,"O","hello",-15,0,21,"hello","how are you","All for one","one for all",6];
 let newArray = [];
-let repetitions;
 
-//grab all elements in array that match array[0]
-//only used to find How Many repeats there are (is there a more elegant solution?)
-const findRepeats = (n, i, arr) => {
-	return n === arr[0]
-};
+//draft - second idea
+const sortAndNest = (arr) => {
 
-//find how many repeats of array[0], then splice them out as nested array
-repetitions = lowFirst.filter(findRepeats).length;
-newArray = newArray.concat([lowFirst.splice(0, repetitions)]);
+	//sort given array strings then numbers, reset newArray, and define necessary variables
+	const sortedArr = arr.toSorted().toSorted((a,b) => a-b);
+	newArray = [];
+	let repetitions;
+	const findRepeats = (n, i, arr) => n === arr[0];
+
+	//loop through sorted array
+	while (sortedArr.length > 0) {
+		repetitions = sortedArr.filter(findRepeats).length;
+		console.log("sortedArr", sortedArr);
+		console.log("repetitions", repetitions);
+
+		//if there are any matches to sortedArr[0], add all as nested array
+		//else just add the value without nesting
+		if (repetitions > 1) {
+			newArray = newArray.concat([sortedArr.splice(0, repetitions)]);
+		} else {
+			newArray = newArray.concat(sortedArr.splice(0, 1));
+		}
+	}
+	return newArray
+}
+
+sortAndNest(given);
+sortAndNest(secondTest);
+sortAndNest(thirdTest);
+sortAndNest(letterTest);
 
 //function to flatten all single-number nested arrays at end
 //other option is check for single numbers before concat
