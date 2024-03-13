@@ -5,8 +5,6 @@ const negativeTest = [12,-21,0,12,0,-1,15,3];
 const letterTest = [3,"K",3,15,"3",0,-23,-3,12,"a","k","a"];
 const stringTest = [6,21,-2,"j","O","h",21,0,6,5465,"O","hello",-15,0,21,"hello","how are you","All for one","one for all",6];
 
-let newArray = [];
-
 //expected output for related unordered array
 const givenGoal = [[1,1,1,1],[2,2,2],4,5,10,[20,20],391,392,591];
 const zeroTestGoal = [0,3,9,12,[15,15],[32,32,32],33,8473];
@@ -18,15 +16,16 @@ const stringTestGoal = [-15,-2,[0,0],[6,6,6],[21,21,21],5465,"All for one",["O",
 //take given array of strings and/or numbers and sort it low-to-high and group any repeating values in a nested array
 const sortAndNest = (arr) => {
 
-	//sort given array low-to-high with strings at end, reset newArray, and define necessary variables
+	//sort given array low-to-high with strings at end and define necessary variables
 	const sortedArr = arr.toSorted().toSorted((a,b) => a-b);
-	newArray = [];
+	let newArray = [];
 	let repetitions;
 	const findRepeats = (n, i, arr) => n === arr[0];
 
 	//if there are any matches to sortedArr[0], add all as nested array(thus the bracekts in concat([]) under if statement)
 	//else just add the value without nesting
 	while (sortedArr.length > 0) {
+		debugger
 		repetitions = sortedArr.filter(findRepeats).length;
 		if (repetitions > 1) {
 			newArray = newArray.concat([sortedArr.splice(0, repetitions)]);
@@ -39,36 +38,30 @@ const sortAndNest = (arr) => {
 	return newArray
 }
 
-
 //adapted from stack overflow user xdazz at thread
 //https://stackoverflow.com/questions/22395357/how-to-compare-two-arrays-are-equal-using-javascript
 //checks that both arrays are of same length and the value at each index is the same for both
-//modified to work with single-depth nested arrays and turned into function for reusability
-
+//modified to work with any-depth nested arrays via recursion and turned into function for reusability
 const sameArrayVerifier = (array1, array2) => {
-	const is_same = (array1.length === array2.length) && array1.every(function(element, index) {
-		if (typeof element === "object") {
-			if ((element.length === array2[index].length) && element.every(function(e, i) {
-				return e === array2[index][i]
-			})) return true
-		} else return element === array2[index];
+	return (array1.length === array2.length) && array1.every(function(element, index) {
+		return (typeof element === "object") ? (sameArrayVerifier(element, array2[index])) : (element === array2[index]);
 	});
-	return is_same
 };
 
 //wrap sorting array, verifying, and logging result in function to make running test cleaner
-const test = (array, goal) => {
-	sortAndNest(array);
-	console.log(newArray);
-	console.log("Array has sorted and nested correctly: ", sameArrayVerifier(goal, newArray));
+const verifySortAndNest = (array, goal) => {
+	let sortedArray = sortAndNest(array);
+	console.log(sortedArray);
+	console.log("Array has sorted and nested correctly: ", sameArrayVerifier(goal, sortedArray));
 }
 
 //run tests
-test(given, givenGoal);
-test(zeroTest, zeroTestGoal);
-test(negativeTest, negativeTestGoal);
-test(letterTest, letterTestGoal);
-test(stringTest, stringTestGoal);
+verifySortAndNest(given, givenGoal);
+verifySortAndNest(zeroTest, zeroTestGoal);
+verifySortAndNest(negativeTest, negativeTestGoal);
+verifySortAndNest(letterTest, letterTestGoal);
+verifySortAndNest(stringTest, stringTestGoal);
+verifySortAndNest(given, zeroTestGoal); // expect return false
 
 //idea: function to flatten all single-value nested arrays at end (not tested)
 // const smallFlat = (arr) => {
