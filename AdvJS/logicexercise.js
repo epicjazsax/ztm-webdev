@@ -12,32 +12,58 @@ const negativeTestGoal = [-21,-1,[0,0],3,[12,12],15];
 const letterTestGoal = [-23,-3,0,[3,3],"3",12,15,"K",["a","a"],"k"];
 const stringTestGoal = [-15,-2,[0,0],[6,6,6],[21,21,21],5465,"All for one",["O","O"],"h",["hello","hello"],"how are you","j","one for all"];
 
+//---------------------------------------------------------------------------------------------------------------------------------------------------------
+//take given array of strings and/or numbers and sort it low-to-high
+const sortArray = (arr) => arr.toSorted().toSorted((a,b) => a-b);
 
-//take given array of strings and/or numbers and sort it low-to-high and group any repeating values in a nested array
-const sortAndNest = (arr) => {
-
-	//sort given array low-to-high with strings at end and define necessary variables
-	const sortedArr = arr.toSorted().toSorted((a,b) => a-b);
+//nest any repeating values together
+const nestMatchesInArray = (arr) => {
+	let oldArray = arr;
 	let newArray = [];
-	let repetitions;
-	const findRepeats = (n, i, arr) => n === arr[0];
+	const findAllMatches = (n, i, arr) => n === arr[0];
 
-	//if there are any matches to sortedArr[0], add all as nested array(thus the bracekts in concat([]) under if statement)
-	//else just add the value without nesting
-	while (sortedArr.length > 0) {
-		debugger
-		repetitions = sortedArr.filter(findRepeats).length;
-		if (repetitions > 1) {
-			newArray = newArray.concat([sortedArr.splice(0, repetitions)]);
-		} else {
-			newArray = newArray.concat(sortedArr.splice(0, 1));
-		}
+	//add oldArray[0] and any matching values from oldArray into matches array
+	//then concat matches as nested array to newArray
+	while (oldArray.length) {
+		matches = oldArray.filter(findAllMatches);
+		newArray = newArray.concat([matches]);
+		oldArray = oldArray.filter(value => value !== oldArray[0]);
 	}
-	//since repetitions searches entire array but splice takes from beggining,
-	//possible issues could arise if all instances of a value aren't grouped together properly
 	return newArray
-}
+};
 
+//flatten any nested arrays with only one element in them
+const flattenSingleElementNestedArrays = (arr) => {
+	let flattenedArray = arr.map(n => (n.length === 1) ? n[0] : n);
+	return flattenedArray
+};
+
+//run a given array through sorting, nesting, and flattening functions above
+const sortNestAndFlatten = (arr) => {
+	return flattenSingleElementNestedArrays(nestMatchesInArray(sortArray(arr)))
+};
+
+//---------------------------------------------------------------------------------------------------------------------------------------------------------
+// single-function version of above sortNestAndFlatten()
+const isolatedSortNestFlatten = (arr) =>{
+	let sortedArray = arr.toSorted().toSorted((a,b) => a-b);
+	let arrayAfterNesting = [];
+	const findAllMatches = (n, i, arr) => n === arr[0];
+
+	//add sortedArray[0] and any matching values from sortedArray into matches array
+	//then concat matches as nested array to arrayAfterNesting
+	while (sortedArray.length) {
+		matches = sortedArray.filter(findAllMatches);
+		arrayAfterNesting = arrayAfterNesting.concat([matches]);
+		sortedArray = sortedArray.filter(value => value !== sortedArray[0]);
+	};
+
+	//flatten any nested arrays with only one element in them
+	arrayAfterNesting = arrayAfterNesting.map(n => (n.length === 1) ? n[0] : n);
+	return arrayAfterNesting
+};
+
+//---------------------------------------------------------------------------------------------------------------------------------------------------------
 //adapted from stack overflow user xdazz at thread
 //https://stackoverflow.com/questions/22395357/how-to-compare-two-arrays-are-equal-using-javascript
 //checks that both arrays are of same length and the value at each index is the same for both
@@ -48,32 +74,30 @@ const sameArrayVerifier = (array1, array2) => {
 	});
 };
 
-//wrap sorting array, verifying, and logging result in function to make running test cleaner
-const verifySortAndNest = (array, goal) => {
-	let sortedArray = sortAndNest(array);
+//wrap sorting array, verifying against goal array, and logging result in function to make running test cleaner
+const verifySortNestAndFlatten = (array, goal) => {
+	let sortedArray = sortNestAndFlatten(array);
 	console.log(sortedArray);
 	console.log("Array has sorted and nested correctly: ", sameArrayVerifier(goal, sortedArray));
-}
+};
+
+const verifyIsolatedSortNestFlatten = (array, goal) => {
+	let sortedArray = isolatedSortNestFlatten(array);
+	console.log(sortedArray);
+	console.log("Array has sorted and nested correctly: ", sameArrayVerifier(goal, sortedArray));
+};
 
 //run tests
-verifySortAndNest(given, givenGoal);
-verifySortAndNest(zeroTest, zeroTestGoal);
-verifySortAndNest(negativeTest, negativeTestGoal);
-verifySortAndNest(letterTest, letterTestGoal);
-verifySortAndNest(stringTest, stringTestGoal);
-verifySortAndNest(given, zeroTestGoal); // expect return false
+verifySortNestAndFlatten(given, givenGoal);
+verifySortNestAndFlatten(zeroTest, zeroTestGoal);
+verifySortNestAndFlatten(negativeTest, negativeTestGoal);
+verifySortNestAndFlatten(letterTest, letterTestGoal);
+verifySortNestAndFlatten(stringTest, stringTestGoal);
+verifySortNestAndFlatten(given, zeroTestGoal); // expect return false
 
-//idea: function to flatten all single-value nested arrays at end (not tested)
-// const smallFlat = (arr) => {
-// 	for (nested of arr) {
-// 		if (nested.length = 1) {
-// 			return nested[0]
-// 		}
-// 	}
-// }
-
-//idea: add all nested arrays and single values before sorting
-// ---arr.filter(findRepeats) for array of all instances of given value
-// ---arr.filter(value => value !=== insert_arr[0]_value_here) to give arr without the values that were just filtered out
-// ---issue: sorting arrays where array[0] is a string seems to sort correctly by array[0] BUT
-// --- ---arrays with a length > 1 and array[0] as an integer are sorted as being larger than single integers
+verifyIsolatedSortNestFlatten(given, givenGoal);
+verifyIsolatedSortNestFlatten(zeroTest, zeroTestGoal);
+verifyIsolatedSortNestFlatten(negativeTest, negativeTestGoal);
+verifyIsolatedSortNestFlatten(letterTest, letterTestGoal);
+verifyIsolatedSortNestFlatten(stringTest, stringTestGoal);
+verifyIsolatedSortNestFlatten(given, zeroTestGoal); // expect return false
