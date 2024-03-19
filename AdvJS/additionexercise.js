@@ -1,20 +1,29 @@
-//write function to return an array of which two numbers of given array add up to given target sum
+//given a number and an array, return the number and its respective array element which add up to given target sum
 const numPlusArrayElementEqualsSum = (num, arr, sum) => {
 	for (element of arr) {
 		if (num + element === sum) {
 			return [num, element]
 		}
 	};
-}
+};
 
-//will return duplicates of answer-arrays if the original given array contains multiple of the same integer that belongs in an answer-array
-//ex. given array [1,1,2] and target sum of 3, return of allArraysThatAddToSum will be [[1,2],[1,2]] (one match for each 1)
-//is this even a problem we should solve?
-//idea: eliminate duplicates from given array at start?
+//remove duplicates from given array
+const removeDuplicates = (arr) => {
+	let arrayWithoutDuplicates = [];
+	for (element of arr) {
+		if (!arrayWithoutDuplicates.includes(element)) {
+			arrayWithoutDuplicates = arrayWithoutDuplicates.concat(element);
+		};
+	};
+	return arrayWithoutDuplicates
+};
+
+//return which two numbers of given array add up to given target sum
+//if there are multiple ways to reach the sum, each pair of numbers is nested in its own array
+//removes duplicates from given array to avoid returning the same pair multiple times
 const whichTwoAdd = (arr, sum) => {
-	let remainingArray = [];
 	let allArraysThatAddToSum = [];
-	remainingArray = remainingArray.concat(arr);
+	let remainingArray = removeDuplicates(arr);
 	while (remainingArray.length > 1) {
 		let num = remainingArray.shift();
 		let elementsThatAddToSum = numPlusArrayElementEqualsSum(num, remainingArray, sum);
@@ -52,23 +61,22 @@ const testNestedArraySumsAgainstTargetSum = (arr, sum) => {
 	return doValuesEqualTarget
 };
 
-//unused but kept just in case
+//verify that the values returned by numPlusArrayElementEqualsSum actually add up to target sum
+//currently not using test but kept just in case
 const testNumPlusArrayElementEqualsSum = (num, arr, sum, name) => {
-	const elementTest = numPlusArrayElementEqualsSum(num, arr, sum);
-	console.log(name, "numIntoInt function returns object: ", typeof elementTest === "object");
-	console.log(name, "numIntoInt function returns: ", elementTest);
-	if (elementTest) {
-		console.log(name, "numIntoInt return adds up to given sum from Given values: ", elementTest[0] + elementTest[1] === sum);
+	const numAndElement = numPlusArrayElementEqualsSum(num, arr, sum);
+	console.log(name, "numPlusArrayElementEqualsSum function returns: ", numAndElement);
+	if (numAndElement) {
+		console.log(name, "numPlusArrayElementEqualsSum return adds up to given sum from Given values: ", numAndElement[0] + numAndElement[1] === sum);
 	};
 };
 
-//given an array of integers, target sum, and related name, test the whichTwoAdd function
-//tests that the return is an object, logs said object, and tests that nested arrays in object add up to given target sum
+//given an array of integers, target sum, and related name, run the whichTwoAdd function
+//log what whichTwoAdd returns, and if it returns an object, verify that each nested array in that object adds up to target sum
 const testWhichTwoAdd = (arr, sum, name) => {
 	const addTest = whichTwoAdd(arr, sum);
-	console.log(name, "whichTwoAdd function returns object: ", typeof addTest === "object");
 	console.log(name, "whichTwoAdd function returns: ", addTest);
-	if (addTest) {
+	if (typeof addTest === "object") {
 		console.log(name, "whichTwoAdd return adds up to given sum: ", testNestedArraySumsAgainstTargetSum(addTest, sum));
 	};
 };
