@@ -12,7 +12,7 @@ const removeDuplicates = (arr) => {
 	let arrayWithoutDuplicates = [];
 	for (element of arr) {
 		if (!arrayWithoutDuplicates.includes(element)) {
-			arrayWithoutDuplicates = arrayWithoutDuplicates.concat(element);
+			arrayWithoutDuplicates.push(element);
 		};
 	};
 	return arrayWithoutDuplicates
@@ -28,7 +28,7 @@ const whichTwoAdd = (arr, sum) => {
 		let num = remainingArray.shift();
 		let elementsThatAddToSum = numPlusArrayElementEqualsSum(num, remainingArray, sum);
 		if (typeof elementsThatAddToSum === "object") {
-			allArraysThatAddToSum = allArraysThatAddToSum.concat([elementsThatAddToSum]);
+			allArraysThatAddToSum.push(elementsThatAddToSum);
 		};
 	};
 	return allArraysThatAddToSum
@@ -56,7 +56,7 @@ const addNestedArrayValues = (arr) => arr[0] + arr[1];
 const testNestedArraySumsAgainstTargetSum = (arr, sum) => {
 	let doValuesEqualTarget = [];
 	for (nested of arr) {
-		doValuesEqualTarget = doValuesEqualTarget.concat(`${nested[0]} + ${nested[1]} = ${sum}: ${addNestedArrayValues(nested) === sum}`);
+		doValuesEqualTarget.push(`${nested[0]} + ${nested[1]} = ${sum}: ${addNestedArrayValues(nested) === sum}`);
 	};
 	return doValuesEqualTarget
 };

@@ -26,7 +26,7 @@ const nestMatchesInArray = (arr) => {
 	//then concat matches as nested array to newArray
 	while (oldArray.length) {
 		matches = oldArray.filter(findAllMatches);
-		newArray = newArray.concat([matches]);
+		newArray.push(matches);
 		oldArray = oldArray.filter(value => value !== oldArray[0]);
 	}
 	return newArray
@@ -54,7 +54,7 @@ const isolatedSortNestFlatten = (arr) =>{
 	//then concat matches as nested array to arrayAfterNesting
 	while (sortedArray.length) {
 		matches = sortedArray.filter(findAllMatches);
-		arrayAfterNesting = arrayAfterNesting.concat([matches]);
+		arrayAfterNesting.push(matches);
 		sortedArray = sortedArray.filter(value => value !== sortedArray[0]);
 	};
 
