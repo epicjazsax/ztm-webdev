@@ -1,18 +1,10 @@
-//test variables
+//variables used for testing following functions
+//format is "colorName": ["hexcode", "rgbcode"]
 const testVariables = {
 	"black": ["#000000", "rgb(0, 0, 0)"],
 	"white": ["#ffffff", "rgb(255, 255, 255)"],
 	"blue": ["#109db4", "rgb(16, 157, 180)"],
 };
-
-const hex1 = "#000000";
-const rgb1 = "rgb(0, 0, 0)";
-
-const hex2 = "#ffffff";
-const rgb2 = "rgb(255, 255, 255)";
-
-const hex3 = "#109db4";
-const rgb3 = "rgb(16, 157, 180)";
 
 //-----------------------------------------------------------------------------------------
 //check that argument given is a valid HEX or RGB color code
@@ -83,52 +75,50 @@ const testTranslateColorCode = (inputCode, expectation, name) => {
 };
 
 //-----------------------------------------------------------------------------------------
-//run tests
+//run testVariables through test functions
+//how to make this section look cleaner??
 console.log("Run all Test Variables to see if they are HEX codes");
-for (color in testVariables) {
-	logIsTestVariableHexCode(testVariables[color][0], color);
-	logIsTestVariableHexCode(testVariables[color][1], color);
-};
+	for (color in testVariables) {
+		for (n in testVariables[color]) {
+			logIsTestVariableHexCode(testVariables[color][n], color);
+		};
+	};
+	console.log("-----------");
 
-logIsTestVariableHexCode(hex1, "hex1");
-logIsTestVariableHexCode(rgb1, "rgb1");
-logIsTestVariableHexCode(hex2, "hex2");
-logIsTestVariableHexCode(rgb2, "rgb2");
-logIsTestVariableHexCode(hex3, "hex3");
-logIsTestVariableHexCode(rgb3, "rgb3");
-console.log("-----------------------------------------------------------------------------");
 console.log("Run all Test Variables to see if they are RGB codes");
-logIsTestVariableRGBCode(hex1, "hex1");
-logIsTestVariableRGBCode(rgb1, "rgb1");
-logIsTestVariableRGBCode(hex2, "hex2");
-logIsTestVariableRGBCode(rgb2, "rgb2");
-logIsTestVariableRGBCode(hex3, "hex3");
-logIsTestVariableRGBCode(rgb3, "rgb3");
-console.log("-----------------------------------------------------------------------------");
+	for (color in testVariables) {
+		for (n in testVariables[color]) {
+			logIsTestVariableRGBCode(testVariables[color][n], color);
+		};
+	};
+	console.log("-----------");
+
 console.log("Run all Test Variables and some false values through HEX or RGB function");
-testIsItHexOrRGB(hex1, "hex1");
-testIsItHexOrRGB(rgb1, "rgb1");
-testIsItHexOrRGB(hex2, "hex2");
-testIsItHexOrRGB(rgb2, "rgb2");
-testIsItHexOrRGB(hex3, "hex3");
-testIsItHexOrRGB(rgb3, "rgb3");
-testIsItHexOrRGB(1234, "1234");
-testIsItHexOrRGB("hello", "hello");
-console.log("-----------------------------------------------------------------------------");
+	for (color in testVariables) {
+		for (n in testVariables[color]) {
+			testIsItHexOrRGB(testVariables[color][n], color);
+		};
+	};
+	testIsItHexOrRGB(1234, "1234");
+	testIsItHexOrRGB("hello", "hello");
+	console.log("-----------");
+
 console.log("Run all HEX variables through ConvertHexToRGB");
-testConvertHexToRGB(hex1, rgb1, "hex1");
-testConvertHexToRGB(hex2, rgb2, "hex2");
-testConvertHexToRGB(hex3, rgb3, "hex3");
-console.log("-----------------------------------------------------------------------------");
+	for (color in testVariables) {
+		testConvertHexToRGB(testVariables[color][0], testVariables[color][1], color);
+	};
+	console.log("-----------");
+
 console.log("Run all RGB Variables through ConvertRGBToHex");
-testConvertRGBToHex(rgb1, hex1, "rgb1");
-testConvertRGBToHex(rgb2, hex2, "rgb2");
-testConvertRGBToHex(rgb3, hex3, "rgb3");
-console.log("-----------------------------------------------------------------------------");
+	for (color in testVariables) {
+		testConvertRGBToHex(testVariables[color][1], testVariables[color][0], color);
+	};
+	console.log("-----------");
+
 console.log("run all Test Variables through TranslateColorCode");
-testTranslateColorCode(hex1, rgb1, "hex1");
-testTranslateColorCode(hex2, rgb2, "hex2");
-testTranslateColorCode(hex3, rgb3, "hex3");
-testTranslateColorCode(rgb1, hex1, "rgb1");
-testTranslateColorCode(rgb2, hex2, "rgb2");
-testTranslateColorCode(rgb3, hex3, "rgb3");
+	for (color in testVariables) {
+		testTranslateColorCode(testVariables[color][0], testVariables[color][1], color);
+	};
+	for (color in testVariables) {
+		testTranslateColorCode(testVariables[color][1], testVariables[color][0], color);
+	};
