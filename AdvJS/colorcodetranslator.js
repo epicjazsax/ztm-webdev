@@ -1,5 +1,10 @@
 //test variables
-//look at turning into dictionary to potentially turn the testing section into a loop
+const testVariables = {
+	"black": ["#000000", "rgb(0, 0, 0)"],
+	"white": ["#ffffff", "rgb(255, 255, 255)"],
+	"blue": ["#109db4", "rgb(16, 157, 180)"],
+};
+
 const hex1 = "#000000";
 const rgb1 = "rgb(0, 0, 0)";
 
@@ -10,8 +15,6 @@ const hex3 = "#109db4";
 const rgb3 = "rgb(16, 157, 180)";
 
 //-----------------------------------------------------------------------------------------
-//note for rgbToHex: use integerVariableName.toString(16) to turn r, g, then b to hex
-
 //check that argument given is a valid HEX or RGB color code
 const isItAHexColorCode = (colorCode) => (typeof colorCode === "string" && colorCode.length === 7 && colorCode[0] === "#");
 const isItAnRGBColorCode = (colorCode) => (typeof colorCode === "string" && colorCode.slice(0,4) === "rgb(" && colorCode.slice(-1) === ")");
@@ -24,6 +27,8 @@ const isItHexOrRGB = (colorCode) => {
 };
 
 //converts HEX color code to rgb
+	//create array of hex values for red, green, blue
+	//translate hex array to base 16 and name each color
 const convertHexToRGB = (hex) => {
 	const hexArray = [hex.slice(1,3), hex.slice(3,5), hex.slice(5,7)];
 	const [red, green, blue] = hexArray.map(hexColor => parseInt(hexColor, 16));
@@ -31,7 +36,13 @@ const convertHexToRGB = (hex) => {
 };
 
 //converts RGB color code to HEX
-const convertRGBToHex = (rgb) => {};
+	//slice the "rgb()" off of the string, then split the integers into array
+	//turn rgb values into Number type, change to base 16, and pad with 0 if value isn't already two digits
+const convertRGBToHex = (rgb) => {
+	const rgbArray = rgb.slice(4,-1).split(", ");
+	const [red, green, blue] = rgbArray.map(color => Number(color).toString(16).padStart(2,"0"));
+	return `#${red}${green}${blue}`
+};
 
 //takes given HEX or RGB color code and translates it to the other type of color code
 const translateColorCode = (code) => {
@@ -74,6 +85,11 @@ const testTranslateColorCode = (inputCode, expectation, name) => {
 //-----------------------------------------------------------------------------------------
 //run tests
 console.log("Run all Test Variables to see if they are HEX codes");
+for (color in testVariables) {
+	logIsTestVariableHexCode(testVariables[color][0], color);
+	logIsTestVariableHexCode(testVariables[color][1], color);
+};
+
 logIsTestVariableHexCode(hex1, "hex1");
 logIsTestVariableHexCode(rgb1, "rgb1");
 logIsTestVariableHexCode(hex2, "hex2");
