@@ -3,7 +3,7 @@ export const robots = [
 		id: 1,
 		name: 'Nea Karlsson',
 		username: 'Mashtyx',
-		email: 'mashtyx@dbd.bhvr',
+		email: 'urbanevader@dbd.bhvr',
 	},
 	{
 		id: 2,
