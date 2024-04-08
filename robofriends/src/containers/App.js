@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import CardList from './CardList';
-import SearchBox from './SearchBox';
-import { robots as besties } from './robots';
-import Scroll from './Scroll';
+import CardList from '../components/CardList';
+import SearchBox from '../components/SearchBox';
+import { robots as besties } from '../robots';
+import Scroll from '../components/Scroll';
 import 'tachyons';
 import './App.css';
 
@@ -26,13 +26,13 @@ class App extends Component {
 	}
 
 	render () {
-		const filteredRobots = this.state.robots.filter(robot => {
-			return robot.name.toLowerCase().includes(this.state.searchfield.toLowerCase());
+		const { robots, searchfield } = this.state;
+		const filteredRobots = robots.filter(robot => {
+			return robot.name.toLowerCase().includes(searchfield.toLowerCase());
 		})
-		if (this.state.robots.length === 0) {
-			return <div id="Loading">Loading...</div>
-		} else {
-			return (
+		return !robots.length ?
+			<div id="Loading">Loading...</div> :
+			(
 				<div className='tc container'>
 					<div id='header'>
 						<h1 className='f1'>HI BESTIES</h1>
@@ -43,7 +43,7 @@ class App extends Component {
 					</Scroll>
 				</div>
 			);
-		}
+		
 	}
 }
 
