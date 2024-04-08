@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import CardList from './CardList';
 import SearchBox from './SearchBox';
 import { robots as besties } from './robots';
+import Scroll from './Scroll';
 import 'tachyons';
 import './App.css';
 
@@ -32,10 +33,14 @@ class App extends Component {
 			return <div id="Loading">Loading...</div>
 		} else {
 			return (
-				<div className='tc'>
-					<h1 className='f1'>HI BESTIES</h1>
-					<SearchBox searchChange={this.onSearchChange}/>
-					<CardList robots={filteredRobots}/>
+				<div className='tc container'>
+					<div id='header'>
+						<h1 className='f1'>HI BESTIES</h1>
+						<SearchBox searchChange={this.onSearchChange}/>
+					</div>
+					<Scroll id='scroll'>
+						<CardList robots={filteredRobots}/>
+					</Scroll>
 				</div>
 			);
 		}
