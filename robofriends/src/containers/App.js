@@ -6,19 +6,32 @@ import Scroll from '../components/Scroll';
 import 'tachyons';
 import './App.css';
 
+
+function assign_unique_ids(input_array) {
+	let output_array = []
+	for (let x = 0; x < input_array.length; x++) {
+		let element = input_array[x]
+		element.id = x;
+		output_array.push(element)
+	}
+	return output_array
+}
+
 class App extends Component {
 	constructor () {
 		super()
 		this.state = {
-			robots: [],
+			robots: besties,
 			searchfield: '',
 		}
 	}
 
 	componentDidMount() {
 		fetch('https://jsonplaceholder.cypress.io/users')
-			.then(response => response.json())
-			.then(users => this.setState({ robots: besties.concat(users) }))
+			.then(res => res.json())
+			.then(data => {
+				this.setState({ robots: assign_unique_ids(besties.concat(data)) })
+			})
 	}
 
 	onSearchChange = (event) => {
@@ -43,7 +56,7 @@ class App extends Component {
 					</Scroll>
 				</div>
 			);
-		
+
 	}
 }
 
