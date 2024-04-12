@@ -16,4 +16,3 @@ const Card = ({ name, username, email }) => {
 }
 
 export default Card;
-module.exports = Card

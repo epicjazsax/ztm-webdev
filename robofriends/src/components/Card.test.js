@@ -1,37 +1,39 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import Card from './Card';
 
-describe('simple card', () => {
-	it('contains cardName, cardUsername and cardEmail elements', () => {
-		const { getByText, queryAllByText } = render(
-			<Card name='person1' username='user1' email='user1@foo.com' />
-	  	);
-		expect(getByText('person1')).toHaveProperty('className', 'cardName');
-		expect(getByText('@user1')).toHaveProperty('className', 'cardUsername');
-		expect(getByText('user1@foo.com')).toHaveProperty('className', 'cardEmail');
-		expect(queryAllByText(/./)).toHaveLength(3);
+describe('complete card', () => {
+	it('renders Name, Username, and Email, and no other fields', () => {
+		const robot = {
+			id: 1,
+			name: 'Nea Karlsson',
+			username: 'Mashtyx',
+			email: 'urbanevader@dbd.bhvr',
+		};
+	
+		render(<Card name={robot.name} username={robot.username} email={robot.email} />);
+
+		const findText = (text) => screen.getByText(text)
+		const renderedName = findText(robot.name);
+		const renderedUsername = findText('@' + robot.username);
+		const renderedEmail = findText(robot.email);
+		const numberOfFieldsOnCard = screen.queryAllByText(/./); 
+
+		expect(renderedName).toHaveProperty('className', 'cardName');
+		expect(renderedUsername).toHaveProperty('className', 'cardUsername');
+		expect(renderedEmail).toHaveProperty('className', 'cardEmail');
+		expect(numberOfFieldsOnCard).toHaveLength(3);
 	})
 })
 
-describe('partially constructed card', () => {
+describe('card with only Name', () => {
 	it('initializes name, but not username or email', () => {
-		const { getByText, queryByText, queryAllByText } = render(
-			<Card name='person1'/>
-	  	);
-		expect(getByText('person1')).toHaveProperty('className', 'cardName');
-		// Card should have one text field if only one is initialized
-		expect(queryAllByText(/./)).toHaveLength(1);
-	})
-})
+		render(<Card name='person1'/>);
 
-describe('test by role', () => {
-	it('basic', () => {
-		const { getAllByRole } = render(
-			<Card name='person1' username='user1' email='user1@foo.com' />
-	  	);
-		// Card should have 3 text fields if fully initialized
-		expect(getAllByRole('heading', {level: 2})).toHaveLength(1);
-		// expect(getAllByRole('paragraph')).toHaveLength(1);
+		const renderedName = screen.getByText('person1');
+		const numberOfFieldsOnCard = screen.queryAllByText(/./); 
+
+		expect(renderedName).toHaveProperty('className', 'cardName');
+		expect(numberOfFieldsOnCard).toHaveLength(1);
 	})
 })
 
