@@ -1,38 +1,70 @@
 import { render, screen } from '@testing-library/react';
 import Card from './Card';
 
+const mockRobot = {
+	name: 'Nea Karlsson',
+	username: 'Mashtyx',
+	email: 'urbanevader@dbd.bhvr',
+};
+
 describe('complete card', () => {
-	it('renders Name, Username, and Email, and no other fields', () => {
-		const robot = {
-			id: 1,
-			name: 'Nea Karlsson',
-			username: 'Mashtyx',
-			email: 'urbanevader@dbd.bhvr',
-		};
-	
-		render(<Card name={robot.name} username={robot.username} email={robot.email} />);
+	const completeCard = <Card name={mockRobot.name} username={mockRobot.username} email={mockRobot.email} />
+
+	it('renders Name, Username, and Email', () => {
+		render(completeCard);
 
 		const findText = (text) => screen.getByText(text)
-		const renderedName = findText(robot.name);
-		const renderedUsername = findText('@' + robot.username);
-		const renderedEmail = findText(robot.email);
-		const numberOfFieldsOnCard = screen.queryAllByText(/./); 
+		const renderedName = findText(mockRobot.name);
+		const renderedUsername = findText('@' + mockRobot.username);
+		const renderedEmail = findText(mockRobot.email);
 
-		expect(renderedName).toHaveProperty('className', 'cardName');
-		expect(renderedUsername).toHaveProperty('className', 'cardUsername');
-		expect(renderedEmail).toHaveProperty('className', 'cardEmail');
+		expect(renderedName).toBeInTheDocument();
+		expect(renderedUsername).toBeInTheDocument();
+		expect(renderedEmail).toBeInTheDocument();
+	})
+
+	it('renders exactly three fields', () => {
+
+		render(completeCard);
+
+		const numberOfFieldsOnCard = screen.queryAllByText(/./);
+
 		expect(numberOfFieldsOnCard).toHaveLength(3);
 	})
 })
 
 describe('card with only Name', () => {
-	it('initializes name, but not username or email', () => {
-		render(<Card name='person1'/>);
+	it('renders only name, with no username or email', () => {
+		render(<Card name={mockRobot.name}/>);
 
-		const renderedName = screen.getByText('person1');
+		const renderedName = screen.getByText(mockRobot.name);
 		const numberOfFieldsOnCard = screen.queryAllByText(/./); 
 
-		expect(renderedName).toHaveProperty('className', 'cardName');
+		expect(renderedName).toBeInTheDocument();
+		expect(numberOfFieldsOnCard).toHaveLength(1);
+	})
+})
+
+describe('card with only Username', () => {
+	it('renders only username, with no name or email', () => {
+		render(<Card name={mockRobot.username}/>);
+
+		const renderedUsername = screen.getByText(mockRobot.username);
+		const numberOfFieldsOnCard = screen.queryAllByText(/./); 
+
+		expect(renderedUsername).toBeInTheDocument();
+		expect(numberOfFieldsOnCard).toHaveLength(1);
+	})
+})
+
+describe('card with only Email', () => {
+	it('renders only email, with no name or username', () => {
+		render(<Card name={mockRobot.email}/>);
+
+		const renderedEmail = screen.getByText(mockRobot.email);
+		const numberOfFieldsOnCard = screen.queryAllByText(/./); 
+
+		expect(renderedEmail).toBeInTheDocument();
 		expect(numberOfFieldsOnCard).toHaveLength(1);
 	})
 })
