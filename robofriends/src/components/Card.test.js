@@ -23,7 +23,7 @@ describe('complete card', () => {
 		expect(renderedEmail).toBeInTheDocument();
 	})
 
-	it('renders exactly three fields', () => {
+	it('renders exactly three text fields', () => {
 
 		render(completeCard);
 
@@ -31,41 +31,101 @@ describe('complete card', () => {
 
 		expect(numberOfFieldsOnCard).toHaveLength(3);
 	})
+
+	it('renders profile picture', () => {
+
+		render(completeCard);
+
+		const profilePicture = screen.getByRole('img');
+
+		expect(profilePicture).toBeInTheDocument();
+	})
 })
 
 describe('card with only Name', () => {
-	it('renders only name, with no username or email', () => {
-		render(<Card name={mockRobot.name}/>);
+	const cardWithOnlyName = <Card name={mockRobot.name}/>
+
+	it('renders Name', () => {
+		render(cardWithOnlyName);
 
 		const renderedName = screen.getByText(mockRobot.name);
+		
+		expect(renderedName).toBeInTheDocument();
+	})
+
+	it('renders only one text field', () => {
+		render(cardWithOnlyName);
+
 		const numberOfFieldsOnCard = screen.queryAllByText(/./); 
 
-		expect(renderedName).toBeInTheDocument();
 		expect(numberOfFieldsOnCard).toHaveLength(1);
+	})
+
+	it('renders profile picture', () => {
+
+		render(cardWithOnlyName);
+
+		const profilePicture = screen.getByRole('img');
+
+		expect(profilePicture).toBeInTheDocument();
 	})
 })
 
 describe('card with only Username', () => {
-	it('renders only username, with no name or email', () => {
-		render(<Card name={mockRobot.username}/>);
+	const cardWithOnlyUsername = <Card name={mockRobot.username}/>
+
+	it('renders Username', () => {
+		render(cardWithOnlyUsername);
 
 		const renderedUsername = screen.getByText(mockRobot.username);
-		const numberOfFieldsOnCard = screen.queryAllByText(/./); 
 
 		expect(renderedUsername).toBeInTheDocument();
+	})
+
+	it('renders only one text field', () => {
+		render(cardWithOnlyUsername);
+
+		const numberOfFieldsOnCard = screen.queryAllByText(/./); 
+
 		expect(numberOfFieldsOnCard).toHaveLength(1);
+	})
+
+	it('renders profile picture', () => {
+
+		render(cardWithOnlyUsername);
+
+		const profilePicture = screen.getByRole('img');
+
+		expect(profilePicture).toBeInTheDocument();
 	})
 })
 
 describe('card with only Email', () => {
-	it('renders only email, with no name or username', () => {
-		render(<Card name={mockRobot.email}/>);
+	const cardWithOnlyEmail = <Card name={mockRobot.email}/>
+
+	it('renders Email', () => {
+		render(cardWithOnlyEmail);
 
 		const renderedEmail = screen.getByText(mockRobot.email);
-		const numberOfFieldsOnCard = screen.queryAllByText(/./); 
 
 		expect(renderedEmail).toBeInTheDocument();
+	})
+
+	it('renders only one text field', () => {
+		render(cardWithOnlyEmail);
+
+		const numberOfFieldsOnCard = screen.queryAllByText(/./); 
+
 		expect(numberOfFieldsOnCard).toHaveLength(1);
+	})
+
+	it('renders profile picture', () => {
+
+		render(cardWithOnlyEmail);
+
+		const profilePicture = screen.getByRole('img');
+
+		expect(profilePicture).toBeInTheDocument();
 	})
 })
 
