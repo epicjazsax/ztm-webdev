@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, cleanup } from '@testing-library/react';
 import Card from './Card';
 
 const mockRobot = {
@@ -10,34 +10,33 @@ const mockRobot = {
 describe('complete card', () => {
 	const completeCard = <Card name={mockRobot.name} username={mockRobot.username} email={mockRobot.email} />
 
-	it('renders Name, Username, and Email', () => {
+	it('renders Name', () => {
 		render(completeCard);
-
-		const findText = (text) => screen.getByText(text)
-		const renderedName = findText(mockRobot.name);
-		const renderedUsername = findText('@' + mockRobot.username);
-		const renderedEmail = findText(mockRobot.email);
-
+		const renderedName = screen.getByText(mockRobot.name);
 		expect(renderedName).toBeInTheDocument();
+	})
+
+	it('renders Username', () => {
+		render(completeCard);
+		const renderedUsername = screen.getByText('@' + mockRobot.username);
 		expect(renderedUsername).toBeInTheDocument();
+	})
+
+	it('renders Email', () => {
+		render(completeCard);
+		const renderedEmail = screen.getByText(mockRobot.email);
 		expect(renderedEmail).toBeInTheDocument();
 	})
 
 	it('renders exactly three text fields', () => {
-
 		render(completeCard);
-
 		const numberOfFieldsOnCard = screen.queryAllByText(/./);
-
 		expect(numberOfFieldsOnCard).toHaveLength(3);
 	})
 
 	it('renders profile picture', () => {
-
 		render(completeCard);
-
 		const profilePicture = screen.getByRole('img');
-
 		expect(profilePicture).toBeInTheDocument();
 	})
 })
@@ -47,26 +46,19 @@ describe('card with only Name', () => {
 
 	it('renders Name', () => {
 		render(cardWithOnlyName);
-
 		const renderedName = screen.getByText(mockRobot.name);
-		
 		expect(renderedName).toBeInTheDocument();
 	})
 
 	it('renders only one text field', () => {
 		render(cardWithOnlyName);
-
-		const numberOfFieldsOnCard = screen.queryAllByText(/./); 
-
+		const numberOfFieldsOnCard = screen.queryAllByText(/./);
 		expect(numberOfFieldsOnCard).toHaveLength(1);
 	})
 
 	it('renders profile picture', () => {
-
 		render(cardWithOnlyName);
-
 		const profilePicture = screen.getByRole('img');
-
 		expect(profilePicture).toBeInTheDocument();
 	})
 })
@@ -76,26 +68,19 @@ describe('card with only Username', () => {
 
 	it('renders Username', () => {
 		render(cardWithOnlyUsername);
-
 		const renderedUsername = screen.getByText(mockRobot.username);
-
 		expect(renderedUsername).toBeInTheDocument();
 	})
 
 	it('renders only one text field', () => {
 		render(cardWithOnlyUsername);
-
-		const numberOfFieldsOnCard = screen.queryAllByText(/./); 
-
+		const numberOfFieldsOnCard = screen.queryAllByText(/./);
 		expect(numberOfFieldsOnCard).toHaveLength(1);
 	})
 
 	it('renders profile picture', () => {
-
 		render(cardWithOnlyUsername);
-
 		const profilePicture = screen.getByRole('img');
-
 		expect(profilePicture).toBeInTheDocument();
 	})
 })
@@ -105,26 +90,19 @@ describe('card with only Email', () => {
 
 	it('renders Email', () => {
 		render(cardWithOnlyEmail);
-
 		const renderedEmail = screen.getByText(mockRobot.email);
-
 		expect(renderedEmail).toBeInTheDocument();
 	})
 
 	it('renders only one text field', () => {
 		render(cardWithOnlyEmail);
-
-		const numberOfFieldsOnCard = screen.queryAllByText(/./); 
-
+		const numberOfFieldsOnCard = screen.queryAllByText(/./);
 		expect(numberOfFieldsOnCard).toHaveLength(1);
 	})
 
 	it('renders profile picture', () => {
-
 		render(cardWithOnlyEmail);
-
 		const profilePicture = screen.getByRole('img');
-
 		expect(profilePicture).toBeInTheDocument();
 	})
 })

@@ -4,7 +4,7 @@ import Card from './Card';
 const createCardFor = (user) => {
 	return (
 		<Card
-			key={user.id}
+			key={user.username}
 			name={user.name}
 			username={user.username}
 			email={user.email}

@@ -7,17 +7,6 @@ import ErrorBoundary from '../components/ErrorBoundary';
 import 'tachyons';
 import './App.css';
 
-
-function assign_unique_ids(input_array) {
-	let output_array = []
-	for (let x = 0; x < input_array.length; x++) {
-		let element = input_array[x]
-		element.id = x;
-		output_array.push(element)
-	}
-	return output_array
-}
-
 class App extends Component {
 	constructor () {
 		super()
@@ -31,7 +20,7 @@ class App extends Component {
 		fetch('https://jsonplaceholder.cypress.io/users')
 			.then(res => res.json())
 			.then(data => {
-				this.setState({ robots: assign_unique_ids(besties.concat(data)) })
+				this.setState({ robots: besties.concat(data) })
 			})
 	}
 
